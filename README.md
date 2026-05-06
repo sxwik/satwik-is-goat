@@ -1,10 +1,9 @@
 <div align="center">
 
-# SATWIK://THE-ANOMALY
+# SATWIK - The Saviour
 
 ### "This website should not exist."
 
-<img src="https://readme-typing-svg.demolab.com?font=Space+Mono&size=22&duration=2000&pause=1000&color=FF003C&center=true&vCenter=true&width=700&lines=REALITY+INTEGRITY+FAILING...;CONTAINMENT+BREACH+DETECTED.;PRIMARY+TIMELINE+UNSTABLE.;THE+ANOMALY+IS+ACTIVE." />
 
 </div>
 
