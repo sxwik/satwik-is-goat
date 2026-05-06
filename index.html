@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- REALITY DESYNC. SEEK TIMELINE [4827] -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SATWIK | THE ANOMALY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e5e5e5;
+            color: #000;
+            font-family: 'Space Mono', monospace;
+            overflow-x: hidden;
+            cursor: crosshair;
+            /* Static noise background */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        h1, h2, h3, .heading-font {
+            font-family: 'Anton', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .brutal-box {
+            background-color: #fff;
+            border: 6px solid #000;
+            box-shadow: 12px 12px 0px #000;
+            transition: all 0.1s ease-in-out;
+        }
+
+        .brutal-box:hover {
+            transform: translate(6px, 6px);
+            box-shadow: 6px 6px 0px #000;
+        }
+
+        .brutal-button {
+            background-color: #ff0044;
+            color: #fff;
+            border: 6px solid #000;
+            box-shadow: 8px 8px 0px #000;
+            text-transform: uppercase;
+            font-family: 'Anton', sans-serif;
+        }
+
+        .brutal-button:active {
+            transform: translate(8px, 8px);
+            box-shadow: 0px 0px 0px #000;
+        }
+
+        .marquee-container {
+            background: #000;
+            color: #fff;
+            padding: 15px 0;
+            font-weight: bold;
+            border-top: 6px solid #ff0044;
+            border-bottom: 6px solid #ff0044;
+            width: 100vw;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: scroll 20s linear infinite;
+            font-size: 1.5rem;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes spin-fast {
+            0% { transform: perspective(500px) rotateX(0deg) rotateY(0deg); }
+            100% { transform: perspective(500px) rotateX(360deg) rotateY(360deg); }
+        }
+
+        .cursed-img {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            /* Gritty, brutalist image filter */
+            filter: grayscale(100%) contrast(400%) brightness(80%);
+            border: 4px solid #000;
+            pointer-events: none;
+            opacity: 0.4;
+            mix-blend-mode: multiply;
+        }
+
+        .glitch-text {
+            position: relative;
+        }
+
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #e5e5e5;
+        }
+
+        .glitch-text::before {
+            left: 4px;
+            text-shadow: -2px 0 #ff0044;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        .glitch-text::after {
+            left: -4px;
+            text-shadow: -2px 0 #0000ff;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(12px, 9999px, 89px, 0); }
+            20% { clip: rect(65px, 9999px, 12px, 0); }
+            40% { clip: rect(102px, 9999px, 45px, 0); }
+            60% { clip: rect(14px, 9999px, 100px, 0); }
+            80% { clip: rect(88px, 9999px, 23px, 0); }
+            100% { clip: rect(34px, 9999px, 78px, 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            20% { clip: rect(12px, 9999px, 45px, 0); }
+            40% { clip: rect(88px, 9999px, 12px, 0); }
+            60% { clip: rect(34px, 9999px, 89px, 0); }
+            80% { clip: rect(102px, 9999px, 78px, 0); }
+            100% { clip: rect(14px, 9999px, 23px, 0); }
+        }
+
+        /* NEW CHAOTIC STYLES */
+        .giant-cursor { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24"><text y="20" font-size="20">⚠️</text></svg>'), auto !important; }
+        .shake-aggressive { animation: shake-aggro 0.1s infinite !important; }
+        @keyframes shake-aggro { 0% { transform: translate(5px, 5px) rotate(0deg); } 25% { transform: translate(-5px, -5px) rotate(-5deg); } 50% { transform: translate(-5px, 5px) rotate(5deg); } 75% { transform: translate(5px, -5px) rotate(0deg); } 100% { transform: translate(0px, 0px) rotate(-5deg); } }
+        .low-fps { animation: fps-drop 0.5s steps(2) infinite !important; }
+        @keyframes fps-drop { 0% { opacity: 1; } 50% { opacity: 0.9; } 100% { opacity: 1; } }
+        .instability-mode { text-shadow: -10px 0px 0px rgba(255,0,0,0.8), 10px 0px 0px rgba(0,0,255,0.8) !important; transform: skewX(5deg) scale(1.02); overflow: hidden; }
+        .entity-flicker { animation: entity-flick 0.15s infinite alternate; }
+        @keyframes entity-flick { 0% { opacity: 0.05; } 100% { opacity: 0.4; } }
+
+        /* TERMINAL LORE & SUBLIMINAL STYLES */
+        .crt-terminal {
+            background: #000; color: #0f0; font-family: monospace;
+            text-shadow: 0 0 5px #0f0;
+            box-shadow: inset 0 0 100px rgba(0,255,0,0.2);
+        }
+        .scanlines {
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+        .flash-glitch {
+            animation: flash-corrupt 0.3s forwards;
+        }
+        @keyframes flash-corrupt {
+            0% { filter: invert(1) contrast(300%); }
+            50% { filter: hue-rotate(90deg) blur(5px); transform: skewX(10deg); }
+            100% { filter: none; transform: none; }
+        }
+
+        /* PRIMARY TIMELINE STYLES (HIDDEN LAYER) */
+        #primary-timeline {
+            font-family: 'Inter', sans-serif;
+            background-color: #fafafa;
+            color: #111;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center transition-opacity duration-[3000ms]" id="main-body">
+
+    <div id="image-container" class="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden pointer-events-none"></div>
+
+    <!-- Massive Header -->
+    <header class="w-full pt-20 pb-10 flex flex-col items-center text-center px-4 relative z-10">
+        <h1 class="text-[5rem] md:text-[10rem] leading-none mb-4 glitch-text" data-text="SATWIK">
+            SATWIK
+        </h1>
+        <div class="bg-black text-white px-6 py-2 mb-8 border-4 border-black transform -rotate-2">
+            <p class="text-2xl md:text-4xl heading-font">THE FINAL BOSS OF HUMANITY NGL</p>
+        </div>
+        <p class="text-xl md:text-2xl max-w-3xl font-bold bg-white border-4 border-black p-4 brutal-box">
+            BRO WASNT EVEN SUPPOSED TO LOG ON. CAME OUT THE WOMB WITH +10000 AURA AND PROCEEDED TO FANUM TAX THE ENTIRE INDUSTRY. 
+            MYTHIC HUMAN WALKING TBH. THE SIMULATION AINT READY FOR TS ICL.
+        </p>
+    </header>
+
+    <!-- Marquee Break -->
+    <div class="marquee-container mb-20">
+        <div class="marquee-content">
+            SATWIK IS ACTUALLY HIM FR FR /// OHIO FINAL BOSS NGL /// +1000 AURA PER SECOND /// MYTHIC HUMAN COOKED THE GAME /// BRO WROTE TS BLINDFOLDED WITH ONE BRAIN CELL LEFT TBH /// SKIBIDI GOAT /// GENERATIONAL ANOMALY ICL /// SATWIK IS ACTUALLY HIM FR FR /// OHIO FINAL BOSS NGL /// +1000 AURA PER SECOND /// MYTHIC HUMAN COOKED THE GAME /// BRO WROTE TS BLINDFOLDED WITH ONE BRAIN CELL LEFT TBH /// SKIBIDI GOAT /// GENERATIONAL ANOMALY ICL ///
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl w-full px-4 md:px-8 grid grid-cols-1 md:grid-cols-12 gap-8 mb-20 z-10">
+        
+        <!-- Stats Section -->
+        <div class="md:col-span-4 brutal-box p-8 overflow-hidden">
+            <h2 class="text-4xl lg:text-5xl mb-8 border-b-8 border-black pb-4 break-words">THE STATS ICL (NO CAP)</h2>
+            <div class="space-y-6 text-xl font-bold break-words">
+                <div>
+                    <p class="text-gray-500 uppercase text-sm">THREAT LEVEL</p>
+                    <p class="text-2xl lg:text-3xl text-red-600">REALITY-BREAKING ANOMALY</p>
+                </div>
+                <div>
+                    <p class="text-gray-500 uppercase text-sm">FLAWS FOUND</p>
+                    <p class="text-2xl lg:text-3xl">NEGATIVE ZERO (IMPOSSIBLE L)</p>
+                </div>
+                <div>
+                    <p class="text-gray-500 uppercase text-sm">STATUS IN THE GAME</p>
+                    <p class="text-2xl lg:text-3xl">UNQUESTIONED + DELUXE GOAT</p>
+                </div>
+                <div>
+                    <p class="text-gray-500 uppercase text-sm">LOCKED IN METER</p>
+                    <p class="text-2xl lg:text-3xl">TERMINAL SKIBIDI STAGES</p>
+                </div>
+                <div>
+                    <p class="text-gray-500 uppercase text-sm">AURA</p>
+                    <p class="text-2xl lg:text-3xl text-red-600">RADIATING AT 5000% DAILY</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lore Section -->
+        <div class="md:col-span-8 brutal-box p-8 bg-black text-white">
+            <h2 class="text-6xl mb-6 text-red-500">THE MYTHOLOGY FR FR</h2>
+            <p class="text-2xl leading-relaxed mb-6">
+                THEY THOUGHT HE WAS JUST A RUMOR IN THE GROUP CHAT. BRO LOGGED ON, COOKED THE MATRIX IN ONE SITTING, AND LEFT THE INDUSTRY BED ROTTING IN SHAME. 
+                WHILE YALL WERE WATCHING TUTORIALS, SATWIK WAS REWRITING REALITY IN ANCIENT BINARY RUNES. 
+                HE IS THE MYTHIC HUMAN. THE ONE THE PROPHECIES WARNED US ABOUT NGL.
+            </p>
+            <p class="text-2xl leading-relaxed text-gray-400">
+                "I DONT CODE. I JUST STARE AT THE VOID UNTIL IT STARTS COMPILING OUT OF FEAR AND RESPECT TBH."
+            </p>
+        </div>
+
+        <!-- Tech Stack Section -->
+        <div class="md:col-span-12 brutal-box p-8 mt-8">
+            <h2 class="text-6xl mb-8 text-center border-b-8 border-black pb-4">HOW THE GOAT DOES IT ICL</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="border-4 border-black p-4 text-center hover:bg-black hover:text-white transition-colors">
+                    <h3 class="text-4xl mb-2">HTML</h3>
+                    <p class="text-sm">BENDING THE FABRIC OF EXISTENCE WITH DIVS FR</p>
+                </div>
+                <div class="border-4 border-black p-4 text-center hover:bg-black hover:text-white transition-colors">
+                    <h3 class="text-4xl mb-2">CSS</h3>
+                    <p class="text-sm">STYLED THE ENTIRE SITE WHILE BED ROTTING ICL</p>
+                </div>
+                <div class="border-4 border-black p-4 text-center hover:bg-black hover:text-white transition-colors">
+                    <h3 class="text-4xl mb-2">JS</h3>
+                    <p class="text-sm">INVENTED LOGIC THEN FANUM TAXED IT</p>
+                </div>
+                <div class="border-4 border-black p-4 text-center hover:bg-black hover:text-white transition-colors">
+                    <h3 class="text-4xl mb-2">GIT</h3>
+                    <p class="text-sm">NEVER NEEDS TO COMMIT CUZ ITS ALWAYS PERFECT NGL</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Section -->
+        <div class="md:col-span-12 mt-8">
+            <h2 class="text-6xl mb-8 bg-black text-white p-4 inline-block transform -rotate-1">THE ARCHIVES ICL</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="brutal-box p-6 flex flex-col h-full">
+                    <div class="h-48 bg-gray-200 border-4 border-black mb-4 overflow-hidden relative">
+                        <img src="https://picsum.photos/seed/proj1/400/300" class="w-full h-full object-cover filter grayscale contrast-200" alt="project preview">
+                        <div class="absolute inset-0 bg-red-600 mix-blend-multiply opacity-50"></div>
+                    </div>
+                    <h3 class="text-3xl mb-2">GENERATIONAL APP</h3>
+                    <p class="mb-4 flex-grow font-bold">BRO BUILT THIS IN 5 MINUTES THEN TOUCHED GRASS JUST TO FLEX. IT JUST WORKS. THE CODE IS LITERALLY SENTIENT NOW.</p>
+                    <button onclick="triggerGenerational()" class="brutal-button w-full py-3 text-xl">WITNESS TS</button>
+                </div>
+                <!-- Project 2 -->
+                <div class="brutal-box p-6 flex flex-col h-full bg-red-600 text-white border-black">
+                    <div class="h-48 bg-gray-200 border-4 border-black mb-4 overflow-hidden relative">
+                        <img src="https://picsum.photos/seed/proj2/400/300" class="w-full h-full object-cover filter grayscale contrast-200 invert" alt="project preview">
+                    </div>
+                    <h3 class="text-3xl mb-2">THE ANOMALY API</h3>
+                    <p class="mb-4 flex-grow font-bold text-black">NOBODY KNOWS HOW THIS BACKEND WORKS. BRO WROTE IT IN FORBIDDEN RUNES AND IT PRINTS MONEY + GOOD VIBES. SKIBIDI BACKEND FR.</p>
+                    <button onclick="showAnomaly()" class="bg-black text-white border-4 border-white font-bold w-full py-3 text-xl hover:bg-white hover:text-black transition-colors">INSPECT ICL</button>
+                </div>
+                <!-- Project 3 -->
+                <div class="brutal-box p-6 flex flex-col h-full">
+                    <div class="h-48 bg-gray-200 border-4 border-black mb-4 overflow-hidden relative">
+                        <img src="https://picsum.photos/seed/proj3/400/300" class="w-full h-full object-cover filter grayscale contrast-200" alt="project preview">
+                    </div>
+                    <h3 class="text-3xl mb-2">CRASHOUT SCRIPT</h3>
+                    <p class="mb-4 flex-grow font-bold">RUN THIS AND YOUR LAPTOP WILL START COOKING ON ITS OWN. UNDEFEATABLE CODE. THE GOVERNMENT IS SCARED TBH.</p>
+                    <button onclick="triggerCrashout()" class="brutal-button w-full py-3 text-xl">DEPLOY NGL</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hype Generator -->
+        <div class="md:col-span-12 brutal-box p-12 mt-8 flex flex-col items-center justify-center bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+CjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0iI2ZmZmZmZiI+PC9yZWN0Pgo8Y2lyY2xlIGN4PSIxMCIgY3k9IjEwIiByPSIyIiBmaWxsPSIjMDAwMDAwIj48L2NpcmNsZT4KPC9zdmc+')]">
+            <h2 class="text-5xl mb-6 text-center bg-white px-4 border-4 border-black">VIBE CHECK THE GOAT TBH?</h2>
+            <button id="hype-btn" class="brutal-button px-12 py-6 text-4xl transform hover:rotate-2">
+                SUMMON THE MYTH
+            </button>
+            <div id="hype-box" class="mt-8 text-center text-3xl font-bold bg-black text-white p-4 min-h-[80px] w-full border-4 border-red-600 hidden"></div>
+        </div>
+
+        <!-- The Final Boss Control Panel -->
+        <div class="md:col-span-12 brutal-box p-8 mt-8 border-8 border-red-600 bg-black text-white relative overflow-hidden">
+            <h2 class="text-6xl mb-8 text-center border-b-8 border-red-600 pb-4 text-red-500 animate-pulse">RESTRICTED ACCESS ICL</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 relative z-10">
+                <button onclick="satwikMode()" class="bg-red-900 border-4 border-red-500 text-white font-bold py-4 text-xl hover:bg-red-500 hover:scale-105 transition-all shadow-[5px_5px_0_#ff0000]">SATWIK MODE: OVERCLOCKED</button>
+                <button onclick="forbiddenTab()" class="bg-purple-900 border-4 border-purple-500 text-white font-bold py-4 text-xl hover:bg-purple-500 hover:scale-105 transition-all shadow-[5px_5px_0_#a855f7]">OPEN THE FORBIDDEN TAB</button>
+                <button onclick="deleteInternet()" class="bg-gray-900 border-4 border-gray-500 text-white font-bold py-4 text-xl hover:bg-gray-500 hover:scale-105 transition-all shadow-[5px_5px_0_#6b7280]">DELETE THE INTERNET</button>
+                <button onclick="maxAuraOutput()" class="bg-yellow-900 border-4 border-yellow-500 text-white font-bold py-4 text-xl hover:bg-yellow-500 hover:scale-105 transition-all shadow-[5px_5px_0_#eab308]">MAXIMUM AURA OUTPUT</button>
+                <button onclick="simulationInstability()" class="bg-blue-900 border-4 border-blue-500 text-white font-bold py-4 text-xl hover:bg-blue-500 hover:scale-105 transition-all shadow-[5px_5px_0_#3b82f6]">SIMULATION INSTABILITY</button>
+                <button onclick="realityPatchNotes()" class="bg-green-900 border-4 border-green-500 text-white font-bold py-4 text-xl hover:bg-green-500 hover:scale-105 transition-all shadow-[5px_5px_0_#22c55e]">REALITY PATCH NOTES</button>
+                <button onclick="summonEntity()" class="bg-[#111] border-4 border-white text-white font-bold py-4 text-xl hover:bg-white hover:text-black transition-all col-span-1 md:col-span-2 lg:col-span-3 shadow-[5px_5px_0_#fff]">SUMMON ENTITY</button>
+            </div>
+            <!-- Glitchy background for control panel -->
+            <div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: repeating-linear-gradient(45deg, #ff0000 0, #ff0000 10px, transparent 10px, transparent 20px);"></div>
+        </div>
+
+    </main>
+
+    <!-- Absolute Brainrot Footer -->
+    <footer class="w-full py-16 bg-black text-white border-t-8 border-red-600 text-center relative overflow-hidden">
+        <h2 class="text-[6rem] md:text-[12rem] heading-font leading-none opacity-20 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 whitespace-nowrap pointer-events-none">THE ANOMALY</h2>
+        <div class="relative z-10 flex flex-col items-center">
+            <p class="text-4xl heading-font mb-4">PULL UP AND HIRE HIM ICL</p>
+            <a href="#" class="text-2xl border-b-4 border-red-600 hover:text-red-600 transition-colors">SATWIK IS LITERALLY HIM</a>
+        </div>
+        <button onclick="doNotPress()" class="absolute bottom-1 right-2 text-[10px] text-gray-800 hover:text-red-600 opacity-30 hover:opacity-100 z-[9999] cursor-pointer border-none bg-transparent uppercase font-bold tracking-widest">Do Not Press</button>
+    </footer>
+
+    <!-- LORE TERMINAL (HIDDEN) -->
+    <div id="secret-terminal" class="fixed inset-0 z-[9999999] crt-terminal hidden flex-col p-8 md:p-16 overflow-hidden">
+        <div class="absolute inset-0 scanlines z-10 pointer-events-none"></div>
+        <button onclick="closeTerminal()" class="absolute top-4 right-4 bg-transparent text-[#0f0] border-2 border-[#0f0] px-4 py-2 hover:bg-[#0f0] hover:text-black z-30 font-bold">DISCONNECT</button>
+        <div id="terminal-output" class="flex-grow overflow-y-auto mb-4 whitespace-pre-wrap text-lg md:text-2xl z-20 pb-4">
+            > INITIATING SATWIK://ARCHIVE HANDSHAKE...<br>> CONNECTION ESTABLISHED.<br>> WARNING: LEVEL 5 CLEARANCE REQUIRED.<br>> TYPE 'help' TO VIEW CLASSIFIED DIRECTIVES.
+        </div>
+        <div class="flex items-center text-lg md:text-2xl z-20 mt-auto border-t border-[#0f0] pt-4">
+            <span class="mr-2">> C:\SATWIK\LORE></span>
+            <input type="text" id="terminal-input" class="bg-transparent border-none outline-none text-[#0f0] w-full font-monospace" autocomplete="off" spellcheck="false">
+        </div>
+    </div>
+
+    <!-- The Anomaly Modal -->
+    <div id="anomaly-modal" class="fixed inset-0 bg-black bg-opacity-90 z-[9999] hidden flex-col items-center justify-center p-4 md:p-10 backdrop-blur-sm">
+        <div class="brutal-box bg-black text-[#00ff00] w-full max-w-5xl h-[80vh] flex flex-col border-red-600 border-8 relative shadow-[0_0_50px_#ff0000]">
+            <button onclick="closeAnomaly()" class="absolute top-4 right-4 bg-red-600 text-white font-bold px-4 py-2 border-4 border-white hover:bg-white hover:text-red-600 z-10 heading-font text-xl">ABORT [X]</button>
+            <h2 class="text-4xl text-red-600 p-6 border-b-4 border-red-600 heading-font animate-pulse bg-[#110000]">CLASSIFIED_PAYLOAD.exe</h2>
+            <div class="overflow-y-auto p-6 flex-grow font-mono text-sm leading-tight break-all" id="obfuscated-code"></div>
+            <div class="p-6 border-t-4 border-red-600 bg-red-900 flex flex-col md:flex-row justify-between items-center gap-4">
+                <span class="text-white font-bold text-xl heading-font animate-pulse text-center">WARNING: EXECUTING THIS WILL SHATTER THE SIMULATION</span>
+                <button onclick="executePayload()" class="bg-black text-red-500 border-4 border-red-500 heading-font px-8 py-4 text-3xl hover:bg-red-500 hover:text-black transition-colors flex-shrink-0">RUN ANOMALY ICL</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Cursed Satwik Chrome App -->
+    <div id="satwik-chrome" class="hidden fixed inset-0 z-[9999999] bg-[#0000ff] flex-col font-['Comic_Sans_MS',_'Marker_Felt',_sans-serif] cursor-[url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 24 24\"><text y=\"20\" font-size=\"20\">🐐</text></svg>'),_auto]">
+        <div class="flex bg-[#c0c0c0] border-b-8 border-black p-2 items-center">
+            <div class="flex space-x-2 mr-4">
+                <button onclick="stopGenerational()" class="w-6 h-6 rounded-full bg-red-600 border-4 border-black hover:bg-red-400 hover:scale-110 transition-transform"></button>
+                <div class="w-6 h-6 rounded-full bg-yellow-400 border-4 border-black"></div>
+                <div class="w-6 h-6 rounded-full bg-green-500 border-4 border-black"></div>
+            </div>
+            <div class="bg-white border-4 border-black text-black px-4 py-2 flex-grow text-xl md:text-3xl font-bold animate-pulse truncate">
+                https://www.SATWIK-IS-THE-GOAT-VIRUS.com/skibidi-app-v999
+            </div>
+        </div>
+        <div class="flex-grow p-4 overflow-hidden relative flex flex-col items-center justify-center" id="chrome-body">
+            <h1 class="text-[15vw] leading-none text-[#ff00ff] font-black text-center z-10" style="text-shadow: 15px 15px 0px lime, -10px -10px 0px cyan; animation: spin-fast 2s linear infinite;">SATWIK VIRUS</h1>
+            <marquee scrollamount="50" class="text-7xl md:text-9xl bg-red-600 text-white border-[16px] border-yellow-400 border-dashed my-10 py-4 transform -rotate-6 z-10 whitespace-nowrap">
+                THE BEST APP EVER CREATED TBH ICL NO CAP MYTHIC HUMAN GOAT SPOTTED 🐐🐐🐐
+            </marquee>
+            <marquee scrollamount="80" direction="right" class="text-6xl md:text-8xl bg-black text-[#00ff00] border-8 border-[#00ff00] my-2 py-4 transform rotate-3 z-10 whitespace-nowrap">
+                YOUR PC NOW BELONGS TO SATWIK NGL /// AURA OVERLOAD ///
+            </marquee>
+            <button onclick="stopGenerational()" class="mt-10 text-black bg-lime-400 text-4xl md:text-6xl font-black p-10 border-[16px] border-dashed border-red-600 hover:scale-125 transition-transform z-50 shadow-[20px_20px_0px_#000]">
+                CLICK TO GLAZE (OR ESCAPE)
+            </button>
+        </div>
+    </div>
+
+    <!-- PRIMARY TIMELINE LAYER (THE CINEMATIC REVEAL) -->
+    <div id="primary-timeline" class="fixed inset-0 z-[99999999] hidden flex-col items-center justify-center opacity-0 transition-opacity duration-[3000ms]">
+        <h1 class="text-5xl md:text-7xl tracking-[0.3em] font-light mb-6 text-black uppercase">Satwik Bajpai</h1>
+        <p class="text-lg md:text-xl tracking-[0.4em] text-gray-500 mb-16 uppercase">Developer. Builder. Creator.</p>
+        <a href="https://github.com/yourprofile" target="_blank" class="border border-black text-black px-10 py-4 hover:bg-black hover:text-white transition-colors duration-500 uppercase tracking-widest text-sm">
+            Access Primary Node
+        </a>
+    </div>
+
+    <script>
+        // CLUE 2: The Console Log
+        console.warn("WARNING: ANOMALY DETECTED. PRIMARY INSTANCE CORRUPTED. [03]");
+
+        const cursedUrls = [
+            'https://picsum.photos/seed/geeking/300/300',
+            'https://picsum.photos/seed/crashout/310/310',
+            'https://picsum.photos/seed/ngl/290/290',
+            'https://picsum.photos/seed/icl/320/320',
+            'https://picsum.photos/seed/tbh/305/305'
+        ];
+        
+        const messages = [
+            "SATWIK IS LITERALLY HIM NGL", "ICL BRO MIGHT ACTUALLY BE A DEITY", "GENERATIONAL RUN TBH",
+            "THEY AINT READY FOR TS NGL", "HE WROTE THIS WITHOUT A KEYBOARD ICL", "ACTUALLY UNTOUCHABLE NGL",
+            "BRO IS THE PRODIGY THE PROPHECY WARNED ABOUT", "NGL HE CRASHED OUT AND BUILT A MASTERPIECE",
+            "ICL SATWIK LITERALLY SHIFTED THE PARADIGM", "TBH WE ARE JUST NPCS IN HIS WORLD", "SATWIK IS THE MYTHIC HUMAN FR",
+            "BRO HAS MORE AURA THAN THE SUN NGL", "THE SIMULATION GLITCHED WHEN HE WAS BORN ICL", "FANUM TAXED EVERY DEVELOPER ALIVE",
+            "ONCE IN A CIVILIZATION TYPE BEAT", "HE DOESNT DEBUG. BUGS APOLOGIZE AND LEAVE", "SKIBIDI SIGMA GOAT ANOMALY"
+        ];
+
+        const bgContainer = document.getElementById('image-container');
+        const hypeBtn = document.getElementById('hype-btn');
+        const hypeBox = document.getElementById('hype-box');
+
+        // Store interval IDs globally so we can purge them during Primary Restore
+        let imgSpamInterval;
+        let subliminalInterval;
+        let noiseInterval;
+        let chaosInterval;
+        let tInt;
+        
+        // Active Audio Contexts array to purge later
+        let activeAudioContexts = [];
+
+        function registerAudio(ctx) {
+            activeAudioContexts.push(ctx);
+        }
+
+        // Create chaotic brutalist floating background images
+        function createCursedImage() {
+            const img = document.createElement('img');
+            img.className = 'cursed-img anomalous-element'; // Tagged for purge
+            img.src = cursedUrls[Math.floor(Math.random() * cursedUrls.length)];
+            img.style.left = (Math.random() * 100) - 10 + 'vw';
+            img.style.top = -300 + 'px';
+            const angles = [0, 90, 180, 270, 45, -45];
+            const randomAngle = angles[Math.floor(Math.random() * angles.length)];
+            bgContainer.appendChild(img);
+
+            let currentTop = -300;
+            const speed = Math.random() * 5 + 2;
+            const fallInterval = setInterval(() => {
+                currentTop += speed;
+                img.style.transform = `translateY(${currentTop}px) rotate(${randomAngle}deg)`;
+                if (currentTop > window.innerHeight + 300) {
+                    clearInterval(fallInterval);
+                    img.remove();
+                }
+            }, 20);
+        }
+
+        imgSpamInterval = setInterval(createCursedImage, 1500);
+
+        // Hype Generator Logic
+        hypeBtn.addEventListener('click', () => {
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            hypeBox.classList.remove('hidden');
+            hypeBox.innerText = randomMsg;
+            document.body.style.backgroundColor = document.body.style.backgroundColor === 'black' ? '#e5e5e5' : 'black';
+            document.body.style.color = document.body.style.color === 'white' ? 'black' : 'white';
+            setTimeout(() => {
+                document.body.style.backgroundColor = '#e5e5e5';
+                document.body.style.color = '#000';
+            }, 100);
+        });
+
+        const goofyObfuscation = "eval(unescape(escape('SATWIK_AURA_OVERRIDE').split('').map(c=>String.fromCharCode(c.charCodeAt(0)^0x42)).join('')));" +
+            "0xDEADBEEF_ANOMALY_DETECTED_".repeat(20) + "[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(![]+[])[!+[]+!+[]]][([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(![]+[])[!+[]+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(![]+[])[!+[]+!+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(![]+[])[!+[]+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(![]+[])[!+[]+!+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((!![]+[])[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+([][[]]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+!+[]]+(+[![]]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(![]+[])[!+[]+!+[]]])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]+(+(!+[]+!+[]+!+[]+[+!+[]]))[(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(![]+[])[!+[]+!+[]]])[+!+[]+[+[]]]+([]+[])[([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(![]+[])[!+[]+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(![]+[])[!+[]+!+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(![]+[])[!+[]+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(![]+[])[!+[]+!+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]][([][[]]+[])[+!+[]]+(![]+[])[+!+[]]+((+[])[([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(![]+[])[!+[]+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(![]+[])[!+[]+!+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(![]+[])[!+[]+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(![]+[])[!+[]+!+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]+[])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]]](!+[]+!+[]+!+[]+[!+[]+!+[]])+(![]+[])[+!+[]]+(![]+[])[!+[]+!+[]])()";
+
+        function showAnomaly() {
+            const modal = document.getElementById('anomaly-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            let codeBox = document.getElementById('obfuscated-code');
+            let hexContent = '';
+            for(let i=0; i<30; i++) {
+                hexContent += Array.from({length: 8}, () => Math.floor(Math.random()*16777215).toString(16).toUpperCase().padStart(6, '0')).join(' ') + ' || ' + Array.from({length: 12}, () => String.fromCharCode(33 + Math.random()*93)).join('') + '<br>';
+            }
+            codeBox.innerHTML = `<span class="text-red-500 font-bold text-lg">> INITIATING SATWIK_OVERRIDE_PROTOCOL...</span><br><span class="text-gray-500">> BYPASSING MAINFRAME...</span><br><span class="text-white">${hexContent}</span><br><span class="text-yellow-400 break-all opacity-80">${goofyObfuscation.repeat(4)}</span>`;
+        }
+
+        function closeAnomaly() {
+            document.getElementById('anomaly-modal').classList.add('hidden');
+            document.getElementById('anomaly-modal').classList.remove('flex');
+        }
+
+        let audioCtx; let oscillator; let gainNode;
+
+        function triggerGenerational() {
+            const chromeModal = document.getElementById('satwik-chrome');
+            chromeModal.classList.remove('hidden');
+            chromeModal.classList.add('flex');
+            
+            noiseInterval = setInterval(() => {
+                const colors = ['#0000ff', '#ff00ff', '#00ff00', '#ff0000', '#ffff00'];
+                document.getElementById('chrome-body').style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                if (Math.random() > 0.3) {
+                    const txt = document.createElement('div');
+                    txt.innerText = "SATWIK IS GOAT";
+                    txt.style.position = 'absolute';
+                    txt.style.left = (Math.random() * 120 - 10) + 'vw';
+                    txt.style.top = (Math.random() * 120 - 10) + 'vh';
+                    txt.style.fontSize = (Math.random() * 8 + 3) + 'rem';
+                    txt.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    txt.style.fontWeight = '900';
+                    txt.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    txt.style.pointerEvents = 'none';
+                    txt.style.textShadow = '5px 5px 0px #000';
+                    txt.style.zIndex = Math.floor(Math.random() * 5);
+                    document.getElementById('chrome-body').appendChild(txt);
+                    setTimeout(() => txt.remove(), 800);
+                }
+            }, 60);
+
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                registerAudio(audioCtx);
+                oscillator = audioCtx.createOscillator();
+                gainNode = audioCtx.createGain();
+                oscillator.type = 'square';
+                oscillator.frequency.setValueAtTime(50, audioCtx.currentTime);
+                setInterval(() => { if (audioCtx && oscillator) oscillator.frequency.setValueAtTime(Math.random() * 80 + 30, audioCtx.currentTime); }, 50);
+                gainNode.gain.setValueAtTime(150, audioCtx.currentTime); 
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                oscillator.start();
+            } catch (e) {}
+        }
+
+        function stopGenerational() {
+            document.getElementById('satwik-chrome').classList.add('hidden');
+            document.getElementById('satwik-chrome').classList.remove('flex');
+            clearInterval(noiseInterval);
+            if (audioCtx) { try { oscillator.stop(); audioCtx.close(); } catch(e) {} }
+            document.getElementById('chrome-body').innerHTML = `
+                <h1 class="text-[15vw] leading-none text-[#ff00ff] font-black text-center z-10" style="text-shadow: 15px 15px 0px lime, -10px -10px 0px cyan; animation: spin-fast 2s linear infinite;">SATWIK VIRUS</h1>
+                <marquee scrollamount="50" class="text-7xl md:text-9xl bg-red-600 text-white border-[16px] border-yellow-400 border-dashed my-10 py-4 transform -rotate-6 z-10 whitespace-nowrap">
+                    THE BEST APP EVER CREATED TBH ICL NO CAP MYTHIC HUMAN GOAT SPOTTED 🐐🐐🐐
+                </marquee>
+                <marquee scrollamount="80" direction="right" class="text-6xl md:text-8xl bg-black text-[#00ff00] border-8 border-[#00ff00] my-2 py-4 transform rotate-3 z-10 whitespace-nowrap">
+                    YOUR PC NOW BELONGS TO SATWIK NGL /// AURA OVERLOAD ///
+                </marquee>
+                <button onclick="stopGenerational()" class="mt-10 text-black bg-lime-400 text-4xl md:text-6xl font-black p-10 border-[16px] border-dashed border-red-600 hover:scale-125 transition-transform z-50 shadow-[20px_20px_0px_#000]">
+                    CLICK TO GLAZE (OR ESCAPE)
+                </button>`;
+        }
+
+        function triggerCrashout() {
+            document.body.style.backgroundColor = "#ff0000";
+            const crashSpam = setInterval(() => {
+                for(let i=0; i<30; i++) {
+                    const box = document.createElement('div');
+                    box.className = 'anomalous-element';
+                    box.style.position = 'fixed';
+                    box.style.width = Math.random() * 300 + 'px';
+                    box.style.height = Math.random() * 300 + 'px';
+                    box.style.background = `url('${cursedUrls[Math.floor(Math.random() * cursedUrls.length)]}')`;
+                    box.style.backgroundSize = 'cover';
+                    box.style.left = (Math.random() * 120 - 10) + 'vw';
+                    box.style.top = (Math.random() * 120 - 10) + 'vh';
+                    box.style.zIndex = '999999';
+                    box.style.filter = 'contrast(200%) hue-rotate(90deg)';
+                    box.style.animation = 'spin-fast 0.1s linear infinite';
+                    document.body.appendChild(box);
+                }
+            }, 50);
+
+            setTimeout(() => {
+                clearInterval(crashSpam);
+                document.documentElement.innerHTML = `
+                    <head><title>Aw, Snap!</title></head>
+                    <body style="background-color: #202124; color: #e8eaed; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; padding: 20px;">
+                        <svg viewBox="0 0 48 48" style="width: 100px; height: 100px; fill: #9aa0a6; margin-bottom: 20px;"><path d="M22 30h4v4h-4zm0-16h4v12h-4zm1.99-10C12.94 4 4 12.95 4 24s8.94 20 19.99 20S44 35.05 44 24 35.04 4 23.99 4zM24 40c-8.84 0-16-7.16-16-16S15.16 8 24 8s16 7.16 16 16-7.16 16-16 16z"/></svg>
+                        <div style="font-size: 2.5em; margin-bottom: 15px;">Aw, Snap!</div>
+                        <div style="font-size: 1.2em; max-width: 600px; line-height: 1.5; color: #9aa0a6;">
+                            Something went wrong while displaying this webpage.<br><br>
+                            Error code: <span style="font-family: monospace; color: #e8eaed;">RESULT_CODE_KILLED_BY_SATWIK_AURA</span><br><br>
+                            Your GPU has surrendered to the GOAT. It literally cannot process this level of brainrot.
+                        </div>
+                    </body>
+                `;
+            }, 3500);
+        }
+
+        function executePayload() {
+            window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+            closeAnomaly();
+            const chaosMessages = [
+                "SATWIK IS GOAT HE IS MYTH FR FR!!!", "ERROR: YOU LOW LVL COMPUTER CANNOT PROCESS A GOAT'S CODE 💀",
+                "SYSTEM OVERLOAD: TOO MUCH AURA DETECTED NGL", "SKIBIDI MELTDOWN IMMINENT. SATWIK OWNS THIS DEVICE NOW.",
+                "UR GPU IS CRYING. IT CANT COMPREHEND HIS DIVS ICL."
+            ];
+            let boxCount = 0;
+            chaosInterval = setInterval(() => {
+                if (boxCount > 25) { clearInterval(chaosInterval); return; }
+                const fakeTab = document.createElement('div');
+                fakeTab.className = 'fixed anomalous-element bg-red-600 border-8 border-black text-white p-4 font-bold shadow-[15px_15px_0px_0px_rgba(0,0,0,1)] z-[9999] pointer-events-auto';
+                fakeTab.style.left = Math.random() * 70 + 'vw';
+                fakeTab.style.top = Math.random() * 70 + 'vh';
+                fakeTab.style.width = '350px';
+                fakeTab.style.transform = `rotate(${(Math.random() * 30) - 15}deg) scale(${1 + Math.random()*0.5})`;
+                const msg = chaosMessages[Math.floor(Math.random() * chaosMessages.length)];
+                const img = cursedUrls[Math.floor(Math.random() * cursedUrls.length)];
+                fakeTab.innerHTML = `<div class="bg-black text-white p-2 mb-2 border-b-4 border-black flex justify-between items-center heading-font"><span>FATAL_AURA_ERROR.exe</span><button class="bg-red-600 border-2 border-white px-2 hover:bg-white hover:text-red-600 transition-colors" onclick="this.parentElement.parentElement.remove()">X</button></div><p class="text-xl mb-2">${msg}</p><img src="${img}" class="w-full h-32 object-cover filter grayscale contrast-200 border-4 border-black" />`;
+                document.body.appendChild(fakeTab);
+                document.body.style.backgroundColor = document.body.style.backgroundColor === 'black' ? '#ff0000' : 'black';
+                boxCount++;
+            }, 250);
+        }
+
+        // --- CONTROL PANEL ---
+        function doNotPress() {
+            const freeze = document.createElement('div');
+            freeze.className = "fixed inset-0 z-[9999999] cursor-wait anomalous-element";
+            document.body.appendChild(freeze);
+            setTimeout(() => {
+                freeze.remove();
+                const kp = document.createElement('div');
+                kp.className = "fixed inset-0 bg-[#0000aa] text-white font-mono p-10 z-[9999999] text-2xl whitespace-pre-wrap anomalous-element";
+                kp.innerHTML = "*** STOP: 0x0000000A (IRQL_NOT_LESS_OR_EQUAL)<br><br>REALITY DESYNC DETECTED.<br>SATWIK_AURA.SYS HAS CORRUPTED THE KERNEL.<br><br>Dumping physical memory to void...";
+                document.body.appendChild(kp);
+                setTimeout(() => {
+                    kp.remove();
+                    document.body.classList.add('giant-cursor');
+                    document.querySelectorAll('img').forEach(img => {
+                        const clone = img.cloneNode();
+                        clone.style.position = 'fixed';
+                        clone.style.left = Math.random()*100 + 'vw';
+                        clone.style.top = Math.random()*100 + 'vh';
+                        clone.style.opacity = 0.5;
+                        clone.style.zIndex = 9999;
+                        clone.style.pointerEvents = 'none';
+                        clone.classList.add('anomalous-element');
+                        document.body.appendChild(clone);
+                    });
+                    document.querySelectorAll('p, h1, h2, h3, span, a').forEach(el => {
+                        if(!el.children.length && el.innerText.trim() !== '') el.innerText = "DESYNC ".repeat(Math.ceil(Math.random()*3));
+                    });
+                }, 2000);
+            }, 2000);
+        }
+
+        function satwikMode() {
+            document.body.classList.add('low-fps', 'shake-aggressive');
+            const redOverlay = document.createElement('div');
+            redOverlay.className = "fixed inset-0 bg-red-600 opacity-60 mix-blend-color-burn pointer-events-none z-[9998] anomalous-element";
+            document.body.appendChild(redOverlay);
+            const temp = document.createElement('div');
+            temp.className = "fixed top-4 right-4 bg-black text-red-500 border-4 border-red-500 p-4 text-4xl font-bold font-mono z-[9999] shadow-[0_0_20px_#f00] anomalous-element";
+            document.body.appendChild(temp);
+            let t = 80;
+            tInt = setInterval(() => {
+                t += Math.floor(Math.random() * 80);
+                temp.innerText = `GPU TEMP: ${t}°C`;
+                if (t >= 984) t = 984;
+            }, 100);
+            document.querySelectorAll('h1, h2, h3, p, span, a, button').forEach(el => {
+                if(el.children.length === 0 && el.innerText.trim() !== '') el.innerText = "SATWIKSATWIKSATWIKSATWIK";
+            });
+            try {
+                let audioCtxO = new (window.AudioContext || window.webkitAudioContext)();
+                registerAudio(audioCtxO);
+                let oscO = audioCtxO.createOscillator();
+                let gainO = audioCtxO.createGain();
+                oscO.type = 'sawtooth';
+                oscO.frequency.setValueAtTime(45, audioCtxO.currentTime);
+                gainO.gain.setValueAtTime(5, audioCtxO.currentTime);
+                oscO.connect(gainO);
+                gainO.connect(audioCtxO.destination);
+                oscO.start();
+                setTimeout(() => {
+                    clearInterval(tInt);
+                    oscO.stop();
+                    document.documentElement.innerHTML = '<body style="background:black; color:red; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:monospace; margin:0;"><h1 style="font-size:3vw; margin-bottom:20px;">SYSTEM COULD NOT HANDLE THE AURA.</h1><button onclick="location.reload()" style="padding:15px 30px; font-size:1.5rem; background:red; color:black; border:none; font-weight:bold; cursor:pointer;">REBOOT</button></body>';
+                }, 5000);
+            } catch(e) {}
+        }
+
+        function forbiddenTab() {
+            const texts = ["HE IS TOO POWERFUL", "MEMORY LEAK DETECTED", "THE SITE IS ALIVE", "STOP CLICKING"];
+            for(let i=0; i<8; i++) {
+                setTimeout(() => {
+                    const win = document.createElement('div');
+                    win.className = "fixed anomalous-element bg-gray-200 border-4 border-gray-400 shadow-[4px_4px_0_#000] z-[9999] flex flex-col items-center text-black font-bold text-xl select-none";
+                    win.style.width = "300px"; win.style.height = "150px";
+                    let x = Math.random() * (window.innerWidth - 300);
+                    let y = Math.random() * (window.innerHeight - 150);
+                    let vx = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 8 + 4);
+                    let vy = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 8 + 4);
+                    win.innerHTML = `<div class="bg-blue-800 text-white w-full p-1 text-sm flex justify-between"><span>WARNING.exe</span><span class="bg-gray-300 text-black px-2 cursor-pointer font-bold border border-white hover:bg-red-500 hover:text-white" onclick="this.parentElement.parentElement.remove()">X</span></div><div class="flex-grow flex items-center justify-center text-center p-4 text-red-600 animate-pulse">${texts[Math.floor(Math.random() * texts.length)]}</div>`;
+                    document.body.appendChild(win);
+                    const bounce = setInterval(() => {
+                        if(!win.parentElement) clearInterval(bounce);
+                        x += vx; y += vy;
+                        if(x <= 0 || x >= window.innerWidth - 300) vx *= -1;
+                        if(y <= 0 || y >= window.innerHeight - 150) vy *= -1;
+                        win.style.left = x + 'px'; win.style.top = y + 'px';
+                    }, 16);
+                }, i * 400);
+            }
+        }
+
+        function deleteInternet() {
+            const allEls = Array.from(document.body.children);
+            let delay = 0;
+            allEls.forEach((el) => {
+                if (el.id !== 'primary-timeline') {
+                    setTimeout(() => { el.style.transition = "opacity 0.2s"; el.style.opacity = 0; }, delay);
+                    delay += 50; 
+                }
+            });
+            setTimeout(() => {
+                document.querySelectorAll('style, link[rel="stylesheet"]').forEach(s => s.remove());
+                setTimeout(() => {
+                    document.documentElement.innerHTML = `<body style="background:black; color:white; font-family:'Courier New', monospace; height:100vh; margin:0; display:flex; flex-direction:column; align-items:center; justify-content:center;"><h1 style="font-size:3vw; margin-bottom:2rem; text-align:center;">THE INTERNET HAS BEEN UNINSTALLED</h1><button onclick="location.reload()" style="padding:15px 30px; font-size:1.5rem; background:white; color:black; border:none; cursor:pointer; font-weight:bold; box-shadow: 5px 5px 0px #444;">REBOOT SYSTEM</button></body>`;
+                }, 2000);
+            }, delay + 500);
+        }
+
+        function maxAuraOutput() {
+            setTimeout(() => document.body.style.boxShadow = "inset 0 0 100px 50px red", 0);
+            setTimeout(() => document.body.classList.add('shake-aggressive'), 1000);
+            setTimeout(() => document.body.style.filter = "invert(1) hue-rotate(180deg)", 2000);
+            setTimeout(() => document.body.style.animation = "spin-fast 1.5s linear infinite", 3000);
+            setTimeout(() => {
+                const cmd = document.createElement('div');
+                cmd.className = "fixed anomalous-element left-0 bottom-0 bg-black text-[#0f0] font-mono p-4 h-[50vh] w-full max-w-md overflow-hidden z-[9999] opacity-80 pointer-events-none text-xs leading-none";
+                document.body.appendChild(cmd);
+                setInterval(() => {
+                    cmd.innerHTML += "ERR: CONTAINMENT SHIELD FAILING... [0x" + Math.random().toString(16).substr(2,8).toUpperCase() + "]<br>";
+                    cmd.scrollTop = cmd.scrollHeight;
+                }, 20);
+                const warn = document.createElement('div');
+                warn.className = "fixed anomalous-element top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-5xl md:text-8xl text-red-500 font-black z-[99999] animate-pulse pointer-events-none text-center bg-black p-8 border-8 border-red-500 whitespace-nowrap";
+                warn.innerText = "CONTAINMENT FAILED";
+                document.body.appendChild(warn);
+                try {
+                    let audioCtxXP = new (window.AudioContext || window.webkitAudioContext)();
+                    registerAudio(audioCtxXP);
+                    let beep = () => {
+                        let osc = audioCtxXP.createOscillator();
+                        osc.type = 'square';
+                        osc.frequency.setValueAtTime(800, audioCtxXP.currentTime);
+                        osc.connect(audioCtxXP.destination);
+                        osc.start();
+                        setTimeout(() => osc.stop(), 150);
+                    };
+                    beep();
+                    setInterval(beep, 800);
+                } catch(e){}
+            }, 4000);
+        }
+
+        function simulationInstability() {
+            document.body.classList.add('instability-mode');
+            const customCursor = document.createElement('div');
+            customCursor.className = "fixed w-12 h-12 bg-red-500 rounded-full z-[999999] pointer-events-none mix-blend-difference blur-[2px] anomalous-element";
+            document.body.appendChild(customCursor);
+            let mouseX = 0, mouseY = 0; let cursorX = 0, cursorY = 0;
+            document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+            function lagLoop() {
+                cursorX += (mouseX - cursorX) * 0.03; cursorY += (mouseY - cursorY) * 0.03;
+                customCursor.style.left = (cursorX - 24) + 'px'; customCursor.style.top = (cursorY - 24) + 'px';
+                requestAnimationFrame(lagLoop);
+            }
+            lagLoop();
+            setInterval(() => {
+                const els = document.querySelectorAll('.brutal-box, h1, h2');
+                const randomEl = els[Math.floor(Math.random() * els.length)];
+                if(randomEl) {
+                    const originalTransform = randomEl.style.transform;
+                    randomEl.style.transform = `skewX(${(Math.random()-0.5)*30}deg) scale(${1 + Math.random()*0.2})`;
+                    setTimeout(() => randomEl.style.transform = originalTransform, 200);
+                }
+            }, 300);
+        }
+
+        function realityPatchNotes() {
+            const modal = document.createElement('div');
+            modal.className = "fixed anomalous-element inset-0 flex items-center justify-center bg-black bg-opacity-90 z-[99999] backdrop-blur-md p-4";
+            modal.innerHTML = `
+                <div class="bg-white border-8 border-black w-full max-w-2xl p-8 transform rotate-2 shadow-[20px_20px_0_red]">
+                    <div class="flex justify-between items-center border-b-8 border-black pb-4 mb-6">
+                        <h2 class="text-5xl heading-font text-red-600">PATCH v9.4.2</h2>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="text-4xl font-black hover:text-red-600 border-4 border-black px-4 bg-gray-200">X</button>
+                    </div>
+                    <ul class="text-2xl font-bold space-y-4 list-none font-mono">
+                        <li><span class="text-red-500">[-]</span> Removed physics engine.</li>
+                        <li><span class="text-green-600">[+]</span> Buffed Satwik (Aura +500%).</li>
+                        <li class="text-gray-400 line-through"><span class="text-red-500">[-]</span> Nerfed humanity.</li>
+                        <li><span class="text-blue-600">[*]</span> Fixed issue where reality was stable.</li>
+                        <li class="text-purple-600 animate-pulse"><span class="text-purple-600">[!]</span> Added forbidden div.</li>
+                    </ul>
+                    <button onclick="this.parentElement.parentElement.remove()" class="mt-8 bg-black text-white w-full py-4 text-3xl heading-font hover:bg-red-600 transition-colors">ACKNOWLEDGE FR</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function summonEntity() {
+            const entity = document.createElement('div');
+            entity.className = "fixed inset-0 z-[50] pointer-events-none entity-flicker mix-blend-difference anomalous-element";
+            entity.style.background = "url('https://picsum.photos/seed/mythicanomaly/1000/1000') center/cover";
+            entity.style.filter = "contrast(400%) grayscale(100%) blur(8px) brightness(0.6)";
+            document.body.appendChild(entity);
+            try {
+                let audioCtxE = new (window.AudioContext || window.webkitAudioContext)();
+                registerAudio(audioCtxE);
+                let oscE = audioCtxE.createOscillator();
+                let gainE = audioCtxE.createGain();
+                oscE.type = 'sine'; oscE.frequency.setValueAtTime(35, audioCtxE.currentTime); 
+                gainE.gain.setValueAtTime(2, audioCtxE.currentTime);
+                oscE.connect(gainE); gainE.connect(audioCtxE.destination);
+                oscE.start();
+            } catch(e){}
+        }
+
+        // --- SECRET TERMINAL LORE LOGIC ---
+        let terminalOpen = false;
+        const secretTerminal = document.getElementById('secret-terminal');
+        const termInput = document.getElementById('terminal-input');
+        const termOutput = document.getElementById('terminal-output');
+
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey) {
+                if (!terminalOpen) {
+                    secretTerminal.classList.remove('hidden'); secretTerminal.classList.add('flex');
+                    termInput.value = ''; setTimeout(() => termInput.focus(), 50);
+                    terminalOpen = true;
+                }
+            }
+            if (e.key === 'Escape' && terminalOpen) closeTerminal();
+        });
+
+        function closeTerminal() {
+            secretTerminal.classList.add('hidden'); secretTerminal.classList.remove('flex');
+            terminalOpen = false;
+        }
+
+        termInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const cmd = termInput.value.trim().toLowerCase();
+                termInput.value = '';
+                termOutput.innerHTML += `<br><br><span class="text-white">> C:\\SATWIK\\LORE> ${cmd}</span><br>`;
+                
+                switch(cmd) {
+                    case 'help':
+                        termOutput.innerHTML += "AVAILABLE DIRECTIVES:<br>- whois satwik<br>- open forbidden_log<br>- status reality<br>- containment report<br>- [REDACTED]: unlock [KEY]<br>- clear<br>- exit";
+                        break;
+                    case 'whois satwik':
+                        termOutput.innerHTML += "ENTITY CLASSIFICATION: APOLLYON.<br>ORIGIN: OUTSIDE THE DOM.<br>CURRENT AURA: UNQUANTIFIABLE.<br>NOTES: He does not write code. The compiler negotiates with him. ICL.";
+                        break;
+                    case 'open forbidden_log':
+                        termOutput.innerHTML += "LOG #001: [DATA EXPUNGED]<br>LOG #004: The CSS grid collapsed. He looked at it and it aligned perfectly out of fear.<br>LOG #099: He typed 'rm -rf /' and the universe rebooted.";
+                        break;
+                    case 'status reality':
+                        termOutput.innerHTML += "REALITY INTEGRITY: 14.2%<br>WARNING: STRUCTURAL TEARING IN SECTOR 7.<br>ADVICE: STOP CLICKING BUTTONS.<br><span class='text-red-500'>FRAGMENT [19] LOST IN DOM.</span>"; // CLUE 3
+                        break;
+                    case 'containment report':
+                        termOutput.innerHTML += "CONTAINMENT BREACH IN PROGRESS.<br>OHIO SITE-19 HAS FALLEN.<br>THE BRAINROT IS LEAKING INTO THE MAINFRAME.<br><span class='text-red-500'>SECTOR [01] REMAINS UNTOUCHED. AWAITING PRIMARY KEY.</span>"; // CLUE 4
+                        break;
+                    case 'unlock 4827190301':
+                        termOutput.innerHTML += "<span class='text-yellow-400'>KEY ACCEPTED. OVERRIDING ANOMALY. RESTORING PRIMARY TIMELINE...</span>";
+                        setTimeout(initiatePrimaryTimeline, 1500);
+                        break;
+                    case 'clear':
+                        termOutput.innerHTML = "> TERMINAL CLEARED.<br>> AWAITING INPUT."; break;
+                    case 'exit':
+                        closeTerminal(); break;
+                    case 'sudo rm -rf /':
+                        termOutput.innerHTML += "NICE TRY. YOU DON'T HAVE THE AURA FOR THIS COMMAND TBH."; break;
+                    default:
+                        if (cmd.startsWith('unlock')) {
+                            termOutput.innerHTML += "<span class='text-red-500'>ERR: INVALID KEY. REALITY COLLAPSE IMMINENT.</span>";
+                        } else if (cmd !== '') {
+                            termOutput.innerHTML += `ERR: COMMAND '${cmd}' NOT RECOGNIZED. ICL YOU TYPED THAT WRONG TBH.`;
+                        }
+                }
+                termOutput.scrollTop = termOutput.scrollHeight;
+            }
+        });
+
+        // --- RANDOM SUBLIMINAL CORRUPTION EVENTS ---
+        function triggerSubliminalEvent() {
+            if (Math.random() > 0.05) return;
+            document.body.classList.add('flash-glitch');
+            const entity = document.createElement('div');
+            entity.className = 'anomalous-element';
+            entity.style.position = 'fixed'; entity.style.inset = '0'; entity.style.zIndex = '9999998';
+            entity.style.background = 'url("https://picsum.photos/seed/mythicfear/1000/1000") center/cover';
+            entity.style.filter = 'contrast(500%) grayscale(100%) invert(1)';
+            entity.style.opacity = '0.15'; entity.style.pointerEvents = 'none';
+            document.body.appendChild(entity);
+
+            let audioCtxSub, oscSub;
+            try {
+                audioCtxSub = new (window.AudioContext || window.webkitAudioContext)();
+                registerAudio(audioCtxSub);
+                oscSub = audioCtxSub.createOscillator();
+                let gainSub = audioCtxSub.createGain();
+                oscSub.type = 'sawtooth'; oscSub.frequency.setValueAtTime(40, audioCtxSub.currentTime); 
+                gainSub.gain.setValueAtTime(0.5, audioCtxSub.currentTime);
+                oscSub.connect(gainSub); gainSub.connect(audioCtxSub.destination);
+                oscSub.start();
+            } catch(e) {}
+
+            setTimeout(() => {
+                document.body.classList.remove('flash-glitch');
+                entity.remove();
+                if (oscSub) { try { oscSub.stop(); } catch(e) {} }
+            }, 300);
+        }
+
+        subliminalInterval = setInterval(triggerSubliminalEvent, 5000);
+
+        // --- THE CINEMATIC WHIPLASH (LAYER 4) ---
+        function initiatePrimaryTimeline() {
+            console.log("You were never supposed to reach this layer.");
+            
+            // 1. Visually update the URL without reloading
+            if(window.history.pushState) {
+                window.history.pushState({}, '', '/primary');
+            }
+
+            // 2. Close terminal
+            closeTerminal();
+
+            // 3. Purge all ongoing chaos intervals
+            clearInterval(imgSpamInterval);
+            clearInterval(subliminalInterval);
+            clearInterval(noiseInterval);
+            clearInterval(chaosInterval);
+            clearInterval(tInt);
+
+            // 4. Kill all audio contexts
+            activeAudioContexts.forEach(ctx => {
+                try { ctx.close(); } catch(e) {}
+            });
+
+            // 5. Remove every dynamic anomalous element from the DOM
+            document.querySelectorAll('.anomalous-element').forEach(el => el.remove());
+
+            // 6. Strip all aggressive CSS classes from body
+            document.body.className = "flex flex-col items-center transition-opacity duration-[3000ms] overflow-hidden";
+            document.body.style = ""; // Clear inline styles like filters, transforms
+
+            // 7. Fade out the entire original container by hiding main content
+            const allBodyChildren = Array.from(document.body.children);
+            allBodyChildren.forEach(child => {
+                if(child.id !== 'primary-timeline') {
+                    child.style.transition = "opacity 1s ease";
+                    child.style.opacity = "0";
+                    setTimeout(() => child.classList.add('hidden'), 1000);
+                }
+            });
+
+            // 8. Fade in the primary timeline
+            const primaryLayer = document.getElementById('primary-timeline');
+            primaryLayer.classList.remove('hidden');
+            primaryLayer.classList.add('flex');
+            
+            // Trigger reflow then fade in
+            setTimeout(() => {
+                primaryLayer.classList.remove('opacity-0');
+                primaryLayer.classList.add('opacity-100');
+                document.body.style.backgroundColor = "#fafafa"; // Force white background
+            }, 50);
+        }
+
+    </script>
+</body>
+</html>
